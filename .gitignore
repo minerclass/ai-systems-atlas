@@ -1,0 +1,6 @@
+# Keep local verification output out of the public site.
+node_modules/
+artifacts/
+test-results/
+*.log
+.env
