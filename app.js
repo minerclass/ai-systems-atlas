@@ -177,9 +177,37 @@ function memoryBudget() {
 }
 for(const id of ['parameters','precision','memory','reserve','runtime']) $('#'+id).addEventListener('input',memoryBudget);
 $('#reset-lab').addEventListener('click',()=>{for(const [id,value] of Object.entries({parameters:8,precision:4,memory:32,reserve:6,runtime:4}))$('#'+id).value=value;memoryBudget()});memoryBudget();
-const explanations={company:{right:'Yes. Google DeepMind was formed in April 2023 by combining DeepMind and Google Brain. It belongs within Google’s wider ecosystem.',wrong:'Try again. Google DeepMind is an AI research organization within Google. Open its company node and compare the 2023 milestones.'},chip:{right:'Yes. Hardware is useful when the model, supported operations, runtime, and memory align. A headline TOPS figure does not resolve those questions.',wrong:'Try again. Having an NPU does not automatically make every LLM compatible. Inspect the NPU schematic’s “What to check” explanation.'},memory:{right:'Yes. Quantization reduces weight storage, but effects on quality depend on the model, quantization method, and task. Test the behavior you need.',wrong:'Try again. A smaller representation can change behavior. The memory lab shows storage tradeoffs; it does not certify answer quality.'}};
+/* Read the scoreboard: a lab's own benchmark figure beside an independent run of the same test. */
+const SB=ATLAS.scoreboard;
+const signed=n=>(n>0?'+':n<0?'−':'±')+Math.abs(n).toFixed(1);
+$('#score-controls').innerHTML=SB.rows.map(r=>`<button data-score="${r.id}" aria-pressed="false">${r.name}</button>`).join('');
+function scorePlot(selectedId) {
+  const W=640,rowH=34,top=30,left=150,right=24,H=top+SB.rows.length*rowH+6,min=30,max=75;
+  const x=v=>(left+(v-min)/(max-min)*(W-left-right)).toFixed(1);
+  let out=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-labelledby="score-svg-title" aria-describedby="score-caption"><title id="score-svg-title">Terminal-Bench 4.0. Each model’s lab figure beside an independent run. The table below lists every value.</title>`;
+  out+=[30,40,50,60,70].map(t=>`<line class="sb-grid" x1="${x(t)}" x2="${x(t)}" y1="${top-8}" y2="${H-4}"/><text class="sb-tick" x="${x(t)}" y="${top-14}" text-anchor="middle">${t}%</text>`).join('');
+  SB.rows.forEach((r,i)=>{
+    const y=top+i*rowH+rowH/2;
+    out+=`<g class="sb-row">${r.id===selectedId?`<rect class="sb-band" x="4" y="${y-rowH/2+2}" width="${W-8}" height="${rowH-4}" rx="6"/>`:''}<text class="sb-name" x="${left-14}" y="${y+4}" text-anchor="end">${r.name}</text>`;
+    if(r.indep)out+=`<line class="sb-gap" x1="${x(r.claim.v)}" x2="${x(r.indep.v)}" y1="${y}" y2="${y}"/>`;
+    out+=`<circle class="sb-claim" cx="${x(r.claim.v)}" cy="${y}" r="7"/>${r.indep?`<circle class="sb-indep" cx="${x(r.indep.v)}" cy="${y}" r="6"/>`:`<text class="sb-tick" x="${(Number(x(r.claim.v))+14).toFixed(1)}" y="${y+4}">no independent run</text>`}</g>`;
+  });
+  return out+'</svg>';
+}
+function showScore(id) {
+  const r=SB.rows.find(row=>row.id===id);
+  document.querySelectorAll('[data-score]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.score===id)));
+  $('#score-plot').innerHTML=scorePlot(id);
+  const used=[...new Set([r.claim.source].concat(r.indep?[r.indep.source]:[]))];
+  $('#score-detail').innerHTML=`<p class="eyebrow">${r.lab}</p><h3>${r.name}</h3><div class="score-pair"><div><span class="score-num claim">${r.claim.v}%</span><h4>Lab’s own figure</h4><p class="small">${r.claim.who}. ${r.claim.setting}</p></div><div><span class="score-num indep">${r.indep?r.indep.v+'%':'None'}</span><h4>Independent run</h4><p class="small">${r.indep?`${r.indep.who}. ${r.indep.setting}`:'None published by October 14, 2026.'}</p></div></div>${r.indep?`<p class="score-gap">Independent run minus lab figure: <strong>${signed(r.indep.v-r.claim.v)} points</strong></p>`:''}<div class="detail-note"><h4>Read it carefully</h4><p>${r.note}</p></div><p class="small">${used.map(s=>sourceLink(s,sources.get(s)[1])).join(' · ')}</p>`;
+}
+$('#score-controls').addEventListener('click',event=>{const b=event.target.closest('[data-score]');if(b)showScore(b.dataset.score)});showScore('opus-55');
+$('#score-table').innerHTML=`<p class="eyebrow">Every value in the drawing</p><table><caption class="small">Terminal-Bench 4.0, percent of tasks passed. Settings differ between rows and between columns; the detail panel above names them for each model. Checked October 14, 2026.</caption><thead><tr><th scope="col">Model</th><th scope="col">Lab’s own figure</th><th scope="col">Independent run</th><th scope="col">Difference</th></tr></thead><tbody>${SB.rows.map(r=>`<tr><th scope="row">${r.name}</th><td>${r.claim.v}% · ${r.claim.who} · ${sourceLink(r.claim.source,'Source ↗')}</td><td>${r.indep?`${r.indep.v}% · ${r.indep.who} · ${sourceLink(r.indep.source,'Source ↗')}`:'None published'}</td><td>${r.indep?signed(r.indep.v-r.claim.v):'—'}</td></tr>`).join('')}</tbody></table>`;
+$('#agent-bars').innerHTML=SB.agents.map(a=>`<div class="agent-row"><div class="agent-name"><strong>${a.name}</strong><span class="small">${a.figures} figures · ${a.sources} sources</span></div><div class="agent-bar" role="img" aria-label="${a.name}: ${a.mix[0]}% lab pages, ${a.mix[1]}% independent evaluators, ${a.mix[2]}% second-hand reports">${['lab','ind','sec'].map((k,i)=>a.mix[i]?`<span class="seg ${k}" style="width:${a.mix[i]}%"></span>`:'').join('')}</div><p class="small agent-read">${a.read}</p></div>`).join('');
+$('#agent-note').innerHTML=`${SB.agentNote} ${sourceLink('benchmark-atlas','Frontier Benchmark Atlas hub ↗')}`;
+const explanations={score:{right:'Yes. Effort level, harness, trial count, and benchmark version all move a score, and these two runs differ in more than one of them. GPT-6 Astra’s independent run came in above OpenAI’s own figure, so a gap does not always point toward exaggeration. Compare like with like before drawing a conclusion.',wrong:'Try again. Check how each number was produced before judging either one. Select Claude Opus 5.5 above to see what each run used, then compare GPT-6 Astra, where the independent run is higher.'},company:{right:'Yes. Google DeepMind was formed in April 2023 by combining DeepMind and Google Brain. It belongs within Google’s wider ecosystem.',wrong:'Try again. Google DeepMind is an AI research organization within Google. Open its company node and compare the 2023 milestones.'},chip:{right:'Yes. Hardware is useful when the model, supported operations, runtime, and memory align. A headline TOPS figure does not resolve those questions.',wrong:'Try again. Having an NPU does not automatically make every LLM compatible. Inspect the NPU schematic’s “What to check” explanation.'},memory:{right:'Yes. Quantization reduces weight storage, but effects on quality depend on the model, quantization method, and task. Test the behavior you need.',wrong:'Try again. A smaller representation can change behavior. The memory lab shows storage tradeoffs; it does not certify answer quality.'}};
 const completed=new Set();
-function renderProgress(){$('#progress').textContent=`${completed.size} of 3 distinctions explored. Progress lasts for this page session.`}
+function renderProgress(){$('#progress').textContent=`${completed.size} of ${Object.keys(explanations).length} distinctions explored. Progress lasts for this page session.`}
 document.querySelectorAll('[data-question]').forEach(group=>group.addEventListener('click',event=>{
   const b=event.target.closest('[data-answer]');if(!b)return;
   const id=group.dataset.question,right=b.dataset.answer==='right';

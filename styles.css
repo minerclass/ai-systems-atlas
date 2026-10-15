@@ -4,3 +4,48 @@
 .chip-controls button{min-width:0;padding-left:8px;padding-right:8px}
 @media(max-width:650px){.chip-controls{flex-wrap:wrap}.chip-controls button{font-size:14px;flex:1 1 30%}.chip-drawing{width:100%}.dep-head{flex-direction:column;align-items:start;gap:10px}.dep-stack{min-width:640px}}
 @media(prefers-reduced-motion:reduce){.cellr{animation:none!important}}
+/* Station 04: read the scoreboard. Gold marks a lab's own figure, teal an independent run. */
+.stations{grid-template-columns:repeat(4,1fr)}
+.sat-four{right:9%;top:12%;color:var(--pink)}
+.score-layout{display:grid;grid-template-columns:1.25fr 1fr;gap:20px}
+.score-controls{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.score-controls button{flex:1 1 30%;min-width:0;font-size:14px;padding:9px 8px}
+.score-figure{margin:0}
+#score-plot svg{display:block;width:100%;height:auto}
+.sb-grid{stroke:#263844;stroke-width:1}
+.sb-tick{fill:var(--muted);font:10px system-ui,sans-serif}
+.sb-name{fill:var(--text);font:600 12px system-ui,sans-serif}
+.sb-band{fill:#1d2f3a;stroke:var(--accent);stroke-width:1}
+.sb-gap{stroke:#8aa0ab;stroke-width:2}
+.sb-claim{fill:var(--panel);stroke:var(--accent);stroke-width:2.5}
+.sb-indep{fill:var(--teal);stroke:var(--panel);stroke-width:2}
+.score-key{display:flex;gap:22px;flex-wrap:wrap;margin-top:12px}
+.score-key span,.agent-key span{display:flex;align-items:center;gap:8px}
+.claim-key,.indep-key{display:inline-block;width:12px;height:12px;border-radius:50%}
+.claim-key{border:2.5px solid var(--accent)}
+.indep-key{background:var(--teal)}
+.score-pair{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:6px 0 4px}
+.score-num{display:block;font:40px/1.1 Georgia,serif;margin-bottom:6px}
+.score-num.claim{color:var(--accent)}
+.score-num.indep{color:var(--teal)}
+.score-gap{color:var(--text);font-size:15px}
+.score-table{margin-top:20px}
+.agents{margin-top:20px}
+.agent-key{display:flex;gap:10px 22px;flex-wrap:wrap;margin:4px 0 18px}
+.agent-bars{display:grid;gap:18px;margin-bottom:18px}
+.agent-row{display:grid;grid-template-columns:190px 1fr;gap:6px 18px;align-items:center}
+.agent-name{display:flex;flex-direction:column}
+.agent-bar{display:flex;gap:2px;height:22px;border-radius:5px;overflow:hidden;background:#0d1720}
+.agent-bar .seg{height:100%;min-width:0}
+.seg.lab,.swatch.lab{background:var(--accent)}
+.seg.ind,.swatch.ind{background:var(--teal)}
+.seg.sec,.swatch.sec{background:#637986}
+.agent-read{grid-column:2;margin:0}
+.agents .primary{margin-top:4px}
+@media(max-width:900px){.stations{grid-template-columns:1fr 1fr}.stations a+a{border-left:0}.stations a:nth-child(even){border-left:1px solid var(--line)}.stations a:nth-child(n+3){border-top:1px solid var(--line)}.score-layout{grid-template-columns:1fr}}
+@media(max-width:650px){.stations{grid-template-columns:1fr}.stations a:nth-child(even){border-left:0}.stations a+a{border-top:1px solid var(--line)}.agent-row{grid-template-columns:1fr}.agent-read{grid-column:1}.score-pair{grid-template-columns:1fr}.score-controls button{flex:1 1 45%}}
+@media print{.score-controls,.agents .primary{display:none!important}.score-layout{display:block}.sb-band{fill:#eee;stroke:#555}.sb-name{fill:#111}.sb-tick{fill:#444}.sb-grid{stroke:#ccc}.sb-claim{fill:#fff;stroke:#111}.sb-indep{fill:#555;stroke:#fff}.score-num.claim,.score-num.indep{color:#111}.agent-bar,.seg,.swatch{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
+#score-plot{overflow-x:auto;padding-bottom:4px}
+.score-hint{display:none;margin:8px 0 0}
+@media(max-width:650px){#score-plot svg{min-width:600px}.score-hint{display:block}}
+@media print{#score-plot{overflow:visible}#score-plot svg{min-width:0}.score-hint{display:none!important}}

@@ -1,4 +1,4 @@
-/* classification: public. Historical selections checked 2026-10-12. */
+/* classification: public. Historical selections checked 2026-10-12; scoreboard figures checked 2026-10-14. */
 const ATLAS = {
   sources: [
     ['nvidia-history','NVIDIA: corporate timeline','https://www.nvidia.com/en-us/about-nvidia/corporate-timeline/','1993 founding; 1999 GeForce milestone; 2006 CUDA; 2012 AlexNet.'],
@@ -45,7 +45,16 @@ const ATLAS = {
     ['llamacpp','llama.cpp: project documentation','https://github.com/ggml-org/llama.cpp','Quantization, supported backends, CPU/GPU inference, and hybrid offloading.'],
     ['generation','Hugging Face: text generation','https://huggingface.co/docs/transformers/main/en/llm_tutorial','Tokenization, generation, decoding, and quantized inference.'],
     ['cache','Hugging Face: how caching works','https://huggingface.co/docs/transformers/main/en/cache_explanation','Token-by-token generation and key-value cache behavior.'],
-    ['inference','NVIDIA: inference optimization','https://developer.nvidia.com/blog/mastering-llm-techniques-inference-optimization/','Prefill, decoding, memory, and inference performance considerations.']
+    ['inference','NVIDIA: inference optimization','https://developer.nvidia.com/blog/mastering-llm-techniques-inference-optimization/','Prefill, decoding, memory, and inference performance considerations.'],
+    ['anthropic-opus-55','Anthropic: introducing Claude Opus 5.5','https://www.anthropic.com/claude-opus-5-5','September 22, 2026 launch table. Terminal-Bench 4.0: Opus 5.5 66.4% at xhigh effort, standard error about 2.6 points; GPT-6 Astra 57.9% at high effort, as reported by OpenAI.'],
+    ['anthropic-sonnet-55','Anthropic: introducing Claude Sonnet 5.5','https://www.anthropic.com/claude-sonnet-5-5','September 28, 2026 launch table. Terminal-Bench 4.0: Sonnet 5.5 70.6%.'],
+    ['anthropic-fable-51','Anthropic: introducing Claude Fable 5.1 and Claude Mythos 5.1','https://www.anthropic.com/claude-fable-and-mythos-5-1','September 2026 launch table. Terminal-Bench 4.0: Fable 5.1 55.8%.'],
+    ['google-argon-card','Google DeepMind: Gemini 4 Argon model card','https://deepmind.google/models/model-cards/gemini-4-argon/','Results table. Terminal-bench 4.0: Gemini 4 Argon 57.4%, run by Google.'],
+    ['cursor-grok','Cursor: Grok 4.7 for agentic coding','https://cursor.com/grok','September 21, 2026 xAI launch table on Cursor’s page. Terminal-Bench 4.0: Grok 4.7 37.6% at Extra High effort.'],
+    ['aa-sonnet-55','Artificial Analysis: Claude Sonnet 5.5','https://artificialanalysis.ai/articles/claude-sonnet-5-5','September 28, 2026 independent run. Terminal-Bench 4.0: Sonnet 5.5 64% at max effort on a pre-release build; Opus 5.5 and GPT-6 Astra (xhigh) 60%.'],
+    ['aa-muse-wonder','Artificial Analysis: Muse Wonder and Muse Wonder Full','https://artificialanalysis.ai/articles/muse-wonder','October 12, 2026 independent run. Terminal-Bench 4.0: Muse Wonder Full 57%; Gemini 4 Argon at high effort level at 57%.'],
+    ['meta-muse-wonder','Meta: build with Muse Wonder','https://dev.meta.ai/resources/blog/build-with-muse-wonder','October 12, 2026 evaluation table. Row labeled Terminal-Bench 4.0-AA: Muse Wonder Full 57.1, Claude Fable 5.1 52.0. The page does not say who ran that row.'],
+    ['benchmark-atlas','Micah Miner: Frontier Benchmark Atlas','https://minerclass.github.io/frontier-benchmark-atlas/','Five AI agents’ compilations of the same benchmark request, with source mix and cross-check, as of October 14, 2026.']
   ],
   companies: [
     {id:'nvidia',name:'NVIDIA',role:'Compute & software',tags:['GPUs','CUDA','Accelerated computing'],summary:'Designs GPUs and an associated software ecosystem used for graphics, scientific computing, and AI. It supplies enabling technology rather than being interchangeable with a chatbot provider.',connection:'Hardware is only part of the story: libraries, developer tools, memory, and networking help make an accelerator useful.',distinction:'NVIDIA is the company; GPU is the processor category; CUDA is its computing platform. A GPU can also come from another company.',sources:['nvidia-history','cuda','blackwell'],events:[
@@ -148,5 +157,25 @@ const ATLAS = {
       {x:8,y:50,w:148,h:124,kind:'compute',label:'NeuronCore\ntensor · vector · scalar',cells:[4,3]},{x:164,y:50,w:148,h:124,kind:'compute',label:'NeuronCore\ntensor · vector · scalar',cells:[4,3]},
       {x:8,y:186,w:304,h:46,kind:'memory',label:'HBM on the package\nrented through AWS · Neuron SDK'}
     ]}
+  },
+  /* Station 04. Terminal-Bench 4.0, checked 2026-10-14. claim = the model's own lab; indep = an independent run of the same test. */
+  scoreboard: {
+    rows: [
+      {id:'sonnet-55',name:'Claude Sonnet 5.5',lab:'Anthropic',claim:{v:70.6,who:'Anthropic, Sonnet 5.5 launch table',setting:'Effort level not stated in the table.',source:'anthropic-sonnet-55'},indep:{v:64,who:'Artificial Analysis',setting:'Max effort, on a pre-release build that Artificial Analysis says had a structured-output bug.',source:'aa-sonnet-55'},note:'The widest gap in this drawing. The independent run tested a pre-release build and Artificial Analysis plans to re-run it, so either number may move.'},
+      {id:'opus-55',name:'Claude Opus 5.5',lab:'Anthropic',claim:{v:66.4,who:'Anthropic, Opus 5.5 launch table',setting:'Xhigh effort, the model’s best setting, in Anthropic’s own setup. Standard error about ±2.6 points.',source:'anthropic-opus-55'},indep:{v:60,who:'Artificial Analysis',setting:'Its own harness; the article does not state the effort level.',source:'aa-sonnet-55'},note:'Same model, same benchmark name, about six points apart. The effort setting and the test harness both changed between the two runs.'},
+      {id:'astra',name:'GPT-6 Astra',lab:'OpenAI',claim:{v:57.9,who:'OpenAI, as quoted in Anthropic’s Opus 5.5 table',setting:'High effort. OpenAI’s own page refuses automated reading, so this figure is cited where a rival lab printed it.',source:'anthropic-opus-55'},indep:{v:60,who:'Artificial Analysis',setting:'Xhigh effort.',source:'aa-sonnet-55'},note:'Here the independent run is higher than the lab’s own figure. A gap does not always point toward exaggeration; it often points to different settings.'},
+      {id:'argon',name:'Gemini 4 Argon',lab:'Google',claim:{v:57.4,who:'Google DeepMind, Gemini 4 Argon model card',setting:'Google ran Argon itself.',source:'google-argon-card'},indep:{v:57,who:'Artificial Analysis',setting:'High effort, the highest Argon offers.',source:'aa-muse-wonder'},note:'Claim and independent run agree within rounding. Agreement is a finding too.'},
+      {id:'wonder-full',name:'Muse Wonder Full',lab:'Meta',claim:{v:57.1,who:'Meta, Muse Wonder evaluation table',setting:'Row labeled Terminal-Bench 4.0-AA, the Artificial Analysis version of the test.',source:'meta-muse-wonder'},indep:{v:57,who:'Artificial Analysis',setting:'Max effort.',source:'aa-muse-wonder'},note:'Meta’s table prints the Artificial Analysis version of the test instead of a run of its own, so the two figures agree by design. Check what a lab’s table actually measured before treating agreement as confirmation.'},
+      {id:'fable-51',name:'Claude Fable 5.1',lab:'Anthropic',claim:{v:55.8,who:'Anthropic, Fable 5.1 launch table',setting:'Effort level not stated in the table; production safeguards were on.',source:'anthropic-fable-51'},indep:{v:52,who:'Printed in Meta’s Muse Wonder table',setting:'Row labeled Terminal-Bench 4.0-AA, max effort. The page does not say who ran it.',source:'meta-muse-wonder'},note:'This independent figure arrives second-hand: a rival lab printed it in its own launch table. Useful, but one step removed from the evaluator.'},
+      {id:'grok-47',name:'Grok 4.7',lab:'xAI',claim:{v:37.6,who:'xAI launch table, on Cursor’s Grok page',setting:'Extra High effort.',source:'cursor-grok'},indep:null,note:'No independent Terminal-Bench 4.0 run had been published by October 14, 2026. A claim with nothing beside it is still only a claim.'}
+    ],
+    agents: [
+      {name:'Cursor',figures:246,sources:8,mix:[75,25,0],read:'245 of 246 figures read directly from the source page.'},
+      {name:'Codex',figures:152,sources:12,mix:[67,33,0],read:'All 152 figures read directly; marked three values unavailable instead of guessing.'},
+      {name:'Antigravity',figures:48,sources:9,mix:[44,22,33],read:'Third revision. Its first draft held figures no source printed; it passed a source check on revision 3.'},
+      {name:'Claude Code',figures:345,sources:26,mix:[31,15,54],read:'Widest coverage. OpenAI and Meta pages refused automated reading, so it leaned on published reproductions.'},
+      {name:'Grok Bot',figures:144,sources:15,mix:[0,20,80],read:'23 of 144 figures read directly; most came from search-result excerpts, and it said so.'}
+    ],
+    agentNote:'Share of each agent’s distinct sources that were lab pages, independent evaluators, or second-hand reports, as computed by the Frontier Benchmark Atlas hub on October 14, 2026. Across the five compilations, 217 figures appear more than once and only one disagrees.'
   }
 };

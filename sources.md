@@ -2,7 +2,7 @@
 
 classification: public
 
-Checked October 12, 2026. Selected milestones, not complete histories. Announcements establish dates and stated positions; explanations are editorial synthesis. Hardware schematics, the machine map, and the memory budget are teaching abstractions. Machine-map links are dated by the company announcement that names the relationship; an announced path is not proof of deployment.
+Checked October 12, 2026; scoreboard figures checked October 14, 2026. A lab's benchmark table is a claim about its own model; an independent run is a separate measurement with its own settings. Selected milestones, not complete histories. Announcements establish dates and stated positions; explanations are editorial synthesis. Hardware schematics, the machine map, and the memory budget are teaching abstractions. Machine-map links are dated by the company announcement that names the relationship; an announced path is not proof of deployment.
 
 ## NVIDIA: corporate timeline
 
@@ -273,3 +273,57 @@ Supports: Token-by-token generation and key-value cache behavior.
 [Primary source](https://developer.nvidia.com/blog/mastering-llm-techniques-inference-optimization/)
 
 Supports: Prefill, decoding, memory, and inference performance considerations.
+
+## Anthropic: introducing Claude Opus 5.5
+
+[Primary source](https://www.anthropic.com/claude-opus-5-5)
+
+Supports: September 22, 2026 launch table. Terminal-Bench 4.0: Opus 5.5 66.4% at xhigh effort, standard error about 2.6 points; GPT-6 Astra 57.9% at high effort, as reported by OpenAI.
+
+## Anthropic: introducing Claude Sonnet 5.5
+
+[Primary source](https://www.anthropic.com/claude-sonnet-5-5)
+
+Supports: September 28, 2026 launch table. Terminal-Bench 4.0: Sonnet 5.5 70.6%.
+
+## Anthropic: introducing Claude Fable 5.1 and Claude Mythos 5.1
+
+[Primary source](https://www.anthropic.com/claude-fable-and-mythos-5-1)
+
+Supports: September 2026 launch table. Terminal-Bench 4.0: Fable 5.1 55.8%.
+
+## Google DeepMind: Gemini 4 Argon model card
+
+[Primary source](https://deepmind.google/models/model-cards/gemini-4-argon/)
+
+Supports: Results table. Terminal-bench 4.0: Gemini 4 Argon 57.4%, run by Google.
+
+## Cursor: Grok 4.7 for agentic coding
+
+[Primary source](https://cursor.com/grok)
+
+Supports: September 21, 2026 xAI launch table on Cursor’s page. Terminal-Bench 4.0: Grok 4.7 37.6% at Extra High effort.
+
+## Artificial Analysis: Claude Sonnet 5.5
+
+[Primary source](https://artificialanalysis.ai/articles/claude-sonnet-5-5)
+
+Supports: September 28, 2026 independent run. Terminal-Bench 4.0: Sonnet 5.5 64% at max effort on a pre-release build; Opus 5.5 and GPT-6 Astra (xhigh) 60%.
+
+## Artificial Analysis: Muse Wonder and Muse Wonder Full
+
+[Primary source](https://artificialanalysis.ai/articles/muse-wonder)
+
+Supports: October 12, 2026 independent run. Terminal-Bench 4.0: Muse Wonder Full 57%; Gemini 4 Argon at high effort level at 57%.
+
+## Meta: build with Muse Wonder
+
+[Primary source](https://dev.meta.ai/resources/blog/build-with-muse-wonder)
+
+Supports: October 12, 2026 evaluation table. Row labeled Terminal-Bench 4.0-AA: Muse Wonder Full 57.1, Claude Fable 5.1 52.0. The page does not say who ran that row.
+
+## Micah Miner: Frontier Benchmark Atlas
+
+[Primary source](https://minerclass.github.io/frontier-benchmark-atlas/)
+
+Supports: Five AI agents’ compilations of the same benchmark request, with source mix and cross-check, as of October 14, 2026.

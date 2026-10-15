@@ -2,6 +2,16 @@
 
 classification: public
 
+## October 15, 2026, third pass: station 04, Read the scoreboard
+
+Prepared on surface-arm / Claude Code, October 14–15, 2026. Verified in the Claude desktop app's built-in browser against a local `python -m http.server` copy of the working tree.
+
+Every scoreboard figure was checked against its cited page on October 14, 2026: Anthropic's Opus 5.5, Sonnet 5.5 and Fable 5.1 launch tables; Google DeepMind's Gemini 4 Argon model card; Cursor's Grok 4.7 page; Artificial Analysis's Sonnet 5.5 and Muse Wonder articles; and Meta's Muse Wonder evaluation table. All nine new source ids resolve in `sources`, none is unused, and `sources.md` was regenerated (54 sources).
+
+Scripted in-page checks at 1280 pixels passed with no console messages: seven model buttons; seven plot rows with seven lab markers and six independent markers (Grok 4.7 has none); exactly one highlighted row and one pressed button after each of the seven selections; the detail panel's difference line for each model; seven value-table rows; five agent bars; wrong and right answers for challenge 04 with feedback; progress counting to "2 of 4" across two stations and resetting to "0 of 4"; four station links; no duplicate element ids.
+
+At 375 pixels the page had no horizontal overflow, but the plot scaled its labels to about 5.5 pixels. The fix keeps the drawing at least 600 pixels wide inside its own horizontally scrolling container on narrow screens, with a hint, following the machine map's pattern. That fix was not re-measured: the built-in browser stopped responding while the app window was hidden, and headless Edge on this machine returned blank frames. Screenshots were not reviewed in this pass, and print-to-PDF was not re-run (print rules hide the model buttons and keep the plot, detail, table and agent bars).
+
 ## October 12, 2026, second pass: machine map, labeled schematics, Trainium, timeline additions
 
 Prepared on surface-intel / Claude Code, October 12, 2026, after the first release below. Verified in the Claude desktop app's built-in browser (Chromium) against a local `python -m http.server` copy of the working tree.
