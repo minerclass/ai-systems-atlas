@@ -49,3 +49,6 @@
 .score-hint{display:none;margin:8px 0 0}
 @media(max-width:650px){#score-plot svg{min-width:600px}.score-hint{display:block}}
 @media print{#score-plot{overflow:visible}#score-plot svg{min-width:0}.score-hint{display:none!important}}
+.related-device{margin-top:20px;display:grid;grid-template-columns:1fr auto;gap:12px 32px;align-items:center}.related-device h3{margin-bottom:10px}.related-device p:last-child{margin-bottom:0;max-width:640px}
+@media(max-width:650px){.related-device{grid-template-columns:1fr}.related-device .primary{justify-self:start}}
+@media print{.related-device .primary{display:none!important}}

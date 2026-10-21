@@ -6,7 +6,7 @@ Four interactive learning experiences for curious adults and educators, by Micah
 
 - **Company Constellations:** explore NVIDIA, OpenAI, Anthropic, Google, Google DeepMind, X, and xAI; compare two timelines through a chosen year; then follow the machine map from the product a person uses, to the lab that builds the model, to the data centers it runs in, to the chip that does the arithmetic.
 - **Inside the Chip:** switch between labeled CPU, GPU, NPU, TPU, and Trainium schematics; see where each chip keeps its memory; read one comparison table; expand technical explanations.
-- **Follow a Prompt:** step through local and cloud inference; vary model size, weight precision, compute memory, and explicit memory allowances.
+- **Follow a Prompt:** step through local and cloud inference; vary model size, weight precision, compute memory, and explicit memory allowances. Links to the companion [Raspberry Pi Generations](https://minerclass.github.io/raspberry-pi-generations/), a small local machine whose PCIe lane carries add-on AI accelerators.
 - **Read the Scoreboard:** set each lab's own Terminal-Bench 4.0 figure beside an independent run for seven frontier models, then compare how five AI agents sourced the same benchmark request. Links to the full [Frontier Benchmark Atlas](https://minerclass.github.io/frontier-benchmark-atlas/).
 
 Each station includes a distinction challenge with explanatory feedback. The page supports keyboard interaction, reduced motion, and printing. It needs no build, accounts, external fonts, analytics, or runtime dependencies. Nothing is submitted to a model. Progress is kept only in page memory.
